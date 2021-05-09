@@ -23,7 +23,11 @@ int main(void)
     // wait for an interrupt
     while (1)
     {
-        *LEDR_ptr = count;
+        // when I judge run here, why the light cannot be controlled?
+        if (run == 1)
+        {
+            *LEDR_ptr = count;
+        }
     }
 }
 
@@ -166,13 +170,10 @@ void pushbutton_ISR(void)
 }
 void HPS_timer_ISR(void)
 {
-    if (run == 1)
-    {
-        if(count == 0)
-        count = 1;
-        else
-        count = 0;
-    }
+    if(count == 0)
+    count = 1;
+    else
+    count = 0;
     volatile int * HPS_timer_ptr = (int*) 0xFFC08000; // HPS timer address
     *(HPS_timer_ptr + 3); // Read timer end of interrupt register to clear the interrupt
 }

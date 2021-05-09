@@ -1,5 +1,5 @@
 
-E:/IntelFPGAProgram/02Computer_Organization/Lab7/Part2/Part2.axf:     file format elf32-littlearm
+E:/IntelFPGAProgram/02Computer_Organization/Lab7/Part2_error/Part2_error.axf:     file format elf32-littlearm
 
 
 Disassembly of section .vectors:
@@ -350,78 +350,86 @@ int main(void)
     // wait for an interrupt
     while (1)
     {
-        *LEDR_ptr = count;
- 360:	e3002d4c 	movw	r2, #3404	; 0xd4c
- 364:	e3402000 	movt	r2, #0
- 368:	e3a01000 	mov	r1, #0
- 36c:	e34f1f20 	movt	r1, #65312	; 0xff20
- 370:	e5d23000 	ldrb	r3, [r2]
- 374:	e5c13000 	strb	r3, [r1]
- 378:	eafffffc 	b	370 <main+0x2c>
+        // when I judge run here, why the light cannot be controlled?
+        if (run == 1)
+ 360:	e30018f0 	movw	r1, #2288	; 0x8f0
+ 364:	e3401000 	movt	r1, #0
+        {
+            *LEDR_ptr = count;
+ 368:	e3002d4c 	movw	r2, #3404	; 0xd4c
+ 36c:	e3402000 	movt	r2, #0
+ 370:	e3a00000 	mov	r0, #0
+ 374:	e34f0f20 	movt	r0, #65312	; 0xff20
+    enable_A9_interrupts (); // enable interrupts in the A9 processor
+    // wait for an interrupt
+    while (1)
+    {
+        // when I judge run here, why the light cannot be controlled?
+        if (run == 1)
+ 378:	e5913000 	ldr	r3, [r1]
+ 37c:	e3530001 	cmp	r3, #1
+        {
+            *LEDR_ptr = count;
+ 380:	05d23000 	ldrbeq	r3, [r2]
+ 384:	05c03000 	strbeq	r3, [r0]
+ 388:	0afffffa 	beq	378 <main+0x34>
+ 38c:	eafffffe 	b	38c <main+0x48>
 
-0000037c <pushbutton_ISR>:
+00000390 <pushbutton_ISR>:
 }
 void pushbutton_ISR(void)
 {
     volatile int * KEY_ptr = (int *) 0xFF200050;
     int press;
     press = *(KEY_ptr + 3); // read the pushbutton interrupt register
- 37c:	e3a03000 	mov	r3, #0
- 380:	e34f3f20 	movt	r3, #65312	; 0xff20
- 384:	e593205c 	ldr	r2, [r3, #92]	; 0x5c
+ 390:	e3a03000 	mov	r3, #0
+ 394:	e34f3f20 	movt	r3, #65312	; 0xff20
+ 398:	e593205c 	ldr	r2, [r3, #92]	; 0x5c
     *(KEY_ptr + 3) = press; // Clear the interrupt
- 388:	e583205c 	str	r2, [r3, #92]	; 0x5c
+ 39c:	e583205c 	str	r2, [r3, #92]	; 0x5c
     if (press & 0x1) // KEY0
- 38c:	e3120001 	tst	r2, #1
- 390:	012fff1e 	bxeq	lr
+ 3a0:	e3120001 	tst	r2, #1
+ 3a4:	012fff1e 	bxeq	lr
     {
         if(run == 1)
- 394:	e30038f0 	movw	r3, #2288	; 0x8f0
- 398:	e3403000 	movt	r3, #0
- 39c:	e5933000 	ldr	r3, [r3]
- 3a0:	e3530001 	cmp	r3, #1
+ 3a8:	e30038f0 	movw	r3, #2288	; 0x8f0
+ 3ac:	e3403000 	movt	r3, #0
+ 3b0:	e5933000 	ldr	r3, [r3]
+ 3b4:	e3530001 	cmp	r3, #1
         run = 0;
- 3a4:	e30038f0 	movw	r3, #2288	; 0x8f0
- 3a8:	e3403000 	movt	r3, #0
- 3ac:	03a02000 	moveq	r2, #0
-        else
-        run = 1;
- 3b0:	13a02001 	movne	r2, #1
- 3b4:	e5832000 	str	r2, [r3]
-        *(LEDR_ptr + 1) = run;
  3b8:	e30038f0 	movw	r3, #2288	; 0x8f0
  3bc:	e3403000 	movt	r3, #0
- 3c0:	e5932004 	ldr	r2, [r3, #4]
- 3c4:	e5d33000 	ldrb	r3, [r3]
- 3c8:	e5c23001 	strb	r3, [r2, #1]
- 3cc:	e12fff1e 	bx	lr
+ 3c0:	03a02000 	moveq	r2, #0
+        else
+        run = 1;
+ 3c4:	13a02001 	movne	r2, #1
+ 3c8:	e5832000 	str	r2, [r3]
+        *(LEDR_ptr + 1) = run;
+ 3cc:	e30038f0 	movw	r3, #2288	; 0x8f0
+ 3d0:	e3403000 	movt	r3, #0
+ 3d4:	e5932004 	ldr	r2, [r3, #4]
+ 3d8:	e5d33000 	ldrb	r3, [r3]
+ 3dc:	e5c23001 	strb	r3, [r2, #1]
+ 3e0:	e12fff1e 	bx	lr
 
-000003d0 <HPS_timer_ISR>:
+000003e4 <HPS_timer_ISR>:
     }
 }
 void HPS_timer_ISR(void)
 {
-    if (run == 1)
- 3d0:	e30038f0 	movw	r3, #2288	; 0x8f0
- 3d4:	e3403000 	movt	r3, #0
- 3d8:	e5933000 	ldr	r3, [r3]
- 3dc:	e3530001 	cmp	r3, #1
- 3e0:	1a000008 	bne	408 <HPS_timer_ISR+0x38>
-    {
-        if(count == 0)
+    if(count == 0)
  3e4:	e3003d4c 	movw	r3, #3404	; 0xd4c
  3e8:	e3403000 	movt	r3, #0
  3ec:	e5933000 	ldr	r3, [r3]
  3f0:	e3530000 	cmp	r3, #0
-        count = 1;
+    count = 1;
  3f4:	e3003d4c 	movw	r3, #3404	; 0xd4c
  3f8:	e3403000 	movt	r3, #0
  3fc:	03a02001 	moveq	r2, #1
-        else
-        count = 0;
+    else
+    count = 0;
  400:	13a02000 	movne	r2, #0
  404:	e5832000 	str	r2, [r3]
-    }
     volatile int * HPS_timer_ptr = (int*) 0xFFC08000; // HPS timer address
     *(HPS_timer_ptr + 3); // Read timer end of interrupt register to clear the interrupt
  408:	e3083fff 	movw	r3, #36863	; 0x8fff
@@ -447,7 +455,7 @@ void __attribute__((interrupt)) __cs3_isr_irq(void)
  42c:	1a000001 	bne	438 <__cs3_isr_irq+0x20>
     {
         pushbutton_ISR();
- 430:	ebffffd1 	bl	37c <pushbutton_ISR>
+ 430:	ebffffd6 	bl	390 <pushbutton_ISR>
  434:	ea000004 	b	44c <__cs3_isr_irq+0x34>
     }
     else if (interrupt_ID == 199)
@@ -455,7 +463,7 @@ void __attribute__((interrupt)) __cs3_isr_irq(void)
  43c:	1a000001 	bne	448 <__cs3_isr_irq+0x30>
     {
         HPS_timer_ISR();
- 440:	ebffffe2 	bl	3d0 <HPS_timer_ISR>
+ 440:	ebffffe7 	bl	3e4 <HPS_timer_ISR>
  444:	ea000000 	b	44c <__cs3_isr_irq+0x34>
  448:	eafffffe 	b	448 <__cs3_isr_irq+0x30>
     else
