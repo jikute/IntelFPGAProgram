@@ -12,13 +12,13 @@ int run = 1; // global, used to increment/not the count variable
 /* the main function */
 int main(void)
 {
-    volatile int* LEDR_ptr = (int*) 0xFF200000;
     disable_A9_interrupts(); // disable interrupts in the A9 processor
     set_A9_IRQ_stack(); // initialize the stack pointer for IRQ mode
     config_GIC(); // configure the general interrupt controller
     config_KEYs(); // configure pushbutton KEYs to generate interrupts
     config_HPS_timer (); // configure HPS Timer 0
     enable_A9_interrupts (); // enable interrupts in the A9 processor
+    volatile int* LEDR_ptr = (int*) 0xFF200000;
     // wait for an interrupt
     while (1)
     {
@@ -98,7 +98,7 @@ void config_GIC(void)
 void config_KEYs(void)
 {
     volatile int * KEY_ptr = (int *) 0xFF200050; // pushbutton KEY base address
-    *(KEY_ptr + 2) = 0xF; // enable interrupts for KEY0
+    *(KEY_ptr + 2) = 0xF; // enable interrupts for KEY0 to KEY3
 }
 
 /* configure HPS Timer 0 */
@@ -160,6 +160,26 @@ void pushbutton_ISR(void)
         run = 0;
         else
         run = 1;
+    }
+    else if (press & 0x2) // KEY1, increment double
+    {
+        volatile int* HPS_timer_ptr = (int*) 0xFFC08000;
+        // stop the timer
+        *(HPS_timer_ptr + 2) = 0;
+        // configure the Load register
+        *HPS_timer_ptr = (*HPS_timer_ptr)/2;
+        //start the timer
+        *(HPS_timer_ptr + 2) = 0x3;
+    }
+    else if (press & 0x4) // KEY2, increment half
+    {
+        volatile int* HPS_timer_ptr = (int*) 0xFFC08000;
+        // stop the timer
+        *(HPS_timer_ptr + 2) = 0;
+        // configure the Load register
+        *HPS_timer_ptr = (*HPS_timer_ptr)*2;
+        //start the timer
+        *(HPS_timer_ptr + 2) = 0x3;
     }
 }
 void HPS_timer_ISR(void)
