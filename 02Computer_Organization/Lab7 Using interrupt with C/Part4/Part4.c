@@ -6,11 +6,11 @@ void config_KEYs(void); // configure pushbutton KEYs to generate interrupts
 void config_private_timer(); // configure the MPCore private timer
 void enable_A9_interrupts (void); // enable interrupts in the A9 processor
 
-int minite1 = 0;
-int minite0 = 0;
-int second1 = 0;
+int minite1 = 5;
+int minite0 = 9;
+int second1 = 5;
 int second0 = 0;
-int hsecond1 = 0;
+int hsecond1 = 5;
 int hsecond0 = 0;
 
 /* the main function */
@@ -23,32 +23,33 @@ int main(void)
     config_private_timer(); // configure the MPCore private timer
     enable_A9_interrupts(); // enable interrupts in the A9 processor
     /* display of the HEX */
-    char number[10] = {0b0111111,\ //0
-                    0b0000110,\ //1
-                    0b1011011,\ //2
-                    0b1001111,\ //3
-                    0b1100110,\ //4
-                    0b1101101,\ //5
-                    0b1111101,\ //6
-                    0b0000111,\ //7
-                    0b1111111,\ //8
-                    0b1101111}; //9
+    char number[10] = {0b0111111, //0
+                       0b0000110, //1
+                       0b1011011, //2
+                       0b1001111, //3
+                       0b1100110, //4
+                       0b1101101, //5
+                       0b1111101, //6
+                       0b0000111, //7
+                       0b1111111, //8
+                       0b1101111}; //9
     /* HEX display base address */
     volatile char* HEX0_ptr = (char*) 0xFF200020;
     volatile char* HEX1_ptr = HEX0_ptr + 1;
     volatile char* HEX2_ptr = HEX0_ptr + 2;
     volatile char* HEX3_ptr = HEX0_ptr + 3;
-    volatile char* HEX4_ptr = HEX0_ptr + 4;
-    volatile char* HEX5_ptr = HEX0_ptr + 5;
+    volatile char* HEX4_ptr = (char*) 0xFF200030;
+    volatile char* HEX5_ptr = HEX4_ptr + 1;
     // wait for an interrupt
     while (1)
     {
-        *HEX5_ptr = number[minite1];
-        *HEX4_ptr = number[minite0];
-        *HEX3_ptr = number[second1];
-        *HEX2_ptr = number[second0];
-        *HEX1_ptr = number[hsecond1];
+        // show the new value
         *HEX0_ptr = number[hsecond0];
+        *HEX1_ptr = number[hsecond1];
+        *HEX2_ptr = number[second0];
+        *HEX3_ptr = number[second1];
+        *HEX4_ptr = number[minite0];
+        *HEX5_ptr = number[minite1];
     }
 }
 
@@ -170,6 +171,7 @@ void __attribute__((interrupt)) __cs3_isr_irq(void)
     // Write to the End of Interrupt Register (ICCEOIR)
     *((int *)0xFFFEC110) = interrupt_ID;
 }
+
 void pushbutton_ISR(void)
 {
     volatile int* private_timer_ptr = (int*) 0xFFFEC600;
@@ -177,19 +179,16 @@ void pushbutton_ISR(void)
     int press;
     press = *(KEY_ptr + 3); // read the pushbutton interrupt register
     *(KEY_ptr + 3) = press; // Clear the interrupt
-    int run = 0;
     if (press & 0x8) // KEY3
     {
-        if(run == 1)
+        if(*(private_timer_ptr + 2) & 0x1)
         {
-            run = 0;
-            // configure the control register
+            // configure the control register, stop private timer
             *(private_timer_ptr + 2) = *(private_timer_ptr + 2) & 0xFFFFFFFE;
         }
         else
         {
-            run = 1;
-            // configure the control register
+            // configure the control register, start private timer
             *(private_timer_ptr + 2) = *(private_timer_ptr + 2) | 0x1;
         }
     }
@@ -197,18 +196,50 @@ void pushbutton_ISR(void)
 
 void private_timer_ISR(void)
 {
+    volatile int* private_timer_ptr = (int*) 0xFFFEC600;
+    *(private_timer_ptr + 3) = 0x0; //clear the interrupt
     hsecond0 = hsecond0 + 1;
     if (hsecond0 > 9)
     {
         hsecond0 = 0;
         hsecond1 = hsecond1 + 1;
     }
-    if (hsecond0 > 9)
+    else
+    return;
+    if (hsecond1 > 9)
     {
-        hsecond0 = 0;
-        hsecond1 = hsecond1 + 1;
+        hsecond1 = 0;
+        second0 = second0 + 1;
     }
-    
+    else
+    return;
+    if (second0 > 9)
+    {
+        second0 = 0;
+        second1 = second1 + 1;
+    }
+    else
+    return;
+    if (second1 > 5)
+    {
+        second1 = 0;
+        minite0 = minite0 + 1;
+    }
+    else
+    return;
+    if (minite0 > 9)
+    {
+        minite0 = 0;
+        minite1 = minite1 + 1;
+    }
+    else
+    return;
+    if (minite1 > 5)
+    {
+        minite1 = 0;
+    }
+    else
+    return;
 }
 
 // Define the remaining exception handlers

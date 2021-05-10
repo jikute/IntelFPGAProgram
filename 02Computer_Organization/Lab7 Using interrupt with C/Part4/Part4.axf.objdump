@@ -1,0 +1,1023 @@
+
+E:/IntelFPGAProgram/02Computer_Organization/Lab7/Part4/Part4.axf:     file format elf32-littlearm
+
+
+Disassembly of section .vectors:
+
+00000000 <__cs3_interrupt_vector>:
+   0:	18 f0 9f e5 18 f0 9f e5 18 f0 9f e5 18 f0 9f e5     ................
+  10:	18 f0 9f e5 18 f0 9f e5 18 f0 9f e5 18 f0 9f e5     ................
+  20:	b4 05 00 00 b8 05 00 00 bc 05 00 00 c0 05 00 00     ................
+  30:	c4 05 00 00 5c 09 00 00 74 05 00 00 c8 05 00 00     ....\...t.......
+
+Disassembly of section .text:
+
+00000040 <__cs3_reset_generic>:
+  40:	ea000026 	b	e0 <__cs3_start_asm_sim>
+
+00000044 <__cs3_start_c>:
+  44:	e59f608c 	ldr	r6, [pc, #140]	; d8 <__cs3_start_c+0x94>
+  48:	e3560000 	cmp	r6, #0
+  4c:	e92d4080 	push	{r7, lr}
+  50:	e2466001 	sub	r6, r6, #1
+  54:	0a00001e 	beq	d4 <__cs3_start_c+0x90>
+  58:	e59f507c 	ldr	r5, [pc, #124]	; dc <__cs3_start_c+0x98>
+  5c:	e3a00000 	mov	r0, #0
+  60:	e3a01000 	mov	r1, #0
+  64:	e515200c 	ldr	r2, [r5, #-12]
+  68:	e515e010 	ldr	lr, [r5, #-16]
+  6c:	e5154008 	ldr	r4, [r5, #-8]
+  70:	e15e0002 	cmp	lr, r2
+  74:	00822004 	addeq	r2, r2, r4
+  78:	0a000009 	beq	a4 <__cs3_start_c+0x60>
+  7c:	e3540000 	cmp	r4, #0
+  80:	0a000007 	beq	a4 <__cs3_start_c+0x60>
+  84:	e1a07002 	mov	r7, r2
+  88:	e1a0c002 	mov	r12, r2
+  8c:	e8be000c 	ldm	lr!, {r2, r3}
+  90:	e8ac000c 	stmia	r12!, {r2, r3}
+  94:	e067300c 	rsb	r3, r7, r12
+  98:	e1540003 	cmp	r4, r3
+  9c:	e1a0200c 	mov	r2, r12
+  a0:	1afffff9 	bne	8c <__cs3_start_c+0x48>
+  a4:	e515e004 	ldr	lr, [r5, #-4]
+  a8:	e35e0000 	cmp	lr, #0
+  ac:	11a03002 	movne	r3, r2
+  b0:	0a000003 	beq	c4 <__cs3_start_c+0x80>
+  b4:	e8a30003 	stmia	r3!, {r0, r1}
+  b8:	e062c003 	rsb	r12, r2, r3
+  bc:	e15e000c 	cmp	lr, r12
+  c0:	1afffffb 	bne	b4 <__cs3_start_c+0x70>
+  c4:	e2466001 	sub	r6, r6, #1
+  c8:	e3760001 	cmn	r6, #1
+  cc:	e2855014 	add	r5, r5, #20
+  d0:	1affffe3 	bne	64 <__cs3_start_c+0x20>
+  d4:	eb000207 	bl	8f8 <__cs3_premain>
+  d8:	00000001 	.word	0x00000001
+  dc:	00000a50 	.word	0x00000a50
+
+000000e0 <__cs3_start_asm_sim>:
+  e0:	e28f103c 	add	r1, pc, #60	; 0x3c
+  e4:	e3a00016 	mov	r0, #22
+  e8:	ef123456 	svc	0x00123456
+  ec:	e3500000 	cmp	r0, #0
+  f0:	ba000008 	blt	118 <__cs3_start_asm_sim+0x38>
+  f4:	e59f2028 	ldr	r2, [pc, #40]	; 124 <__cs3_heap_start_ptr>
+  f8:	e59fd01c 	ldr	sp, [pc, #28]	; 11c <__cs3_start_asm_sim+0x3c>
+  fc:	e5920008 	ldr	r0, [r2, #8]
+ 100:	e3500000 	cmp	r0, #0
+ 104:	11a0d000 	movne	sp, r0
+ 108:	e59f1010 	ldr	r1, [pc, #16]	; 120 <__cs3_start_asm_sim+0x40>
+ 10c:	e5920004 	ldr	r0, [r2, #4]
+ 110:	e3500000 	cmp	r0, #0
+ 114:	15810000 	strne	r0, [r1]
+ 118:	eaffffc9 	b	44 <__cs3_start_c>
+ 11c:	3ffffff8 	.word	0x3ffffff8
+ 120:	00000e98 	.word	0x00000e98
+
+00000124 <__cs3_heap_start_ptr>:
+ 124:	00000ec8 	.word	0x00000ec8
+
+00000128 <_start>:
+ 128:	e51fd000 	ldr	sp, [pc, #-0]	; 130 <_start+0x8>
+ 12c:	eaffffc4 	b	44 <__cs3_start_c>
+ 130:	3ffffff8 	.word	0x3ffffff8
+
+00000134 <deregister_tm_clones>:
+ 134:	e92d4008 	push	{r3, lr}
+ 138:	e59f002c 	ldr	r0, [pc, #44]	; 16c <deregister_tm_clones+0x38>
+ 13c:	e59f302c 	ldr	r3, [pc, #44]	; 170 <deregister_tm_clones+0x3c>
+ 140:	e0603003 	rsb	r3, r0, r3
+ 144:	e3530006 	cmp	r3, #6
+ 148:	8a000001 	bhi	154 <deregister_tm_clones+0x20>
+ 14c:	e8bd4008 	pop	{r3, lr}
+ 150:	e12fff1e 	bx	lr
+ 154:	e59f3018 	ldr	r3, [pc, #24]	; 174 <deregister_tm_clones+0x40>
+ 158:	e3530000 	cmp	r3, #0
+ 15c:	0afffffa 	beq	14c <deregister_tm_clones+0x18>
+ 160:	e1a0e00f 	mov	lr, pc
+ 164:	e12fff13 	bx	r3
+ 168:	eafffff7 	b	14c <deregister_tm_clones+0x18>
+ 16c:	00000ea0 	.word	0x00000ea0
+ 170:	00000ea3 	.word	0x00000ea3
+ 174:	00000000 	.word	0x00000000
+
+00000178 <register_tm_clones>:
+ 178:	e92d4008 	push	{r3, lr}
+ 17c:	e59f0034 	ldr	r0, [pc, #52]	; 1b8 <register_tm_clones+0x40>
+ 180:	e59f3034 	ldr	r3, [pc, #52]	; 1bc <register_tm_clones+0x44>
+ 184:	e0603003 	rsb	r3, r0, r3
+ 188:	e1a03143 	asr	r3, r3, #2
+ 18c:	e0833fa3 	add	r3, r3, r3, lsr #31
+ 190:	e1b010c3 	asrs	r1, r3, #1
+ 194:	1a000001 	bne	1a0 <register_tm_clones+0x28>
+ 198:	e8bd4008 	pop	{r3, lr}
+ 19c:	e12fff1e 	bx	lr
+ 1a0:	e59f2018 	ldr	r2, [pc, #24]	; 1c0 <register_tm_clones+0x48>
+ 1a4:	e3520000 	cmp	r2, #0
+ 1a8:	0afffffa 	beq	198 <register_tm_clones+0x20>
+ 1ac:	e1a0e00f 	mov	lr, pc
+ 1b0:	e12fff12 	bx	r2
+ 1b4:	eafffff7 	b	198 <register_tm_clones+0x20>
+ 1b8:	00000ea0 	.word	0x00000ea0
+ 1bc:	00000ea0 	.word	0x00000ea0
+ 1c0:	00000000 	.word	0x00000000
+
+000001c4 <__do_global_dtors_aux>:
+ 1c4:	e92d4010 	push	{r4, lr}
+ 1c8:	e59f402c 	ldr	r4, [pc, #44]	; 1fc <__do_global_dtors_aux+0x38>
+ 1cc:	e5d43000 	ldrb	r3, [r4]
+ 1d0:	e3530000 	cmp	r3, #0
+ 1d4:	1a000006 	bne	1f4 <__do_global_dtors_aux+0x30>
+ 1d8:	ebffffd5 	bl	134 <deregister_tm_clones>
+ 1dc:	e59f301c 	ldr	r3, [pc, #28]	; 200 <__do_global_dtors_aux+0x3c>
+ 1e0:	e3530000 	cmp	r3, #0
+ 1e4:	159f0018 	ldrne	r0, [pc, #24]	; 204 <__do_global_dtors_aux+0x40>
+ 1e8:	1320f000 	nopne	{0}
+ 1ec:	e3a03001 	mov	r3, #1
+ 1f0:	e5c43000 	strb	r3, [r4]
+ 1f4:	e8bd4010 	pop	{r4, lr}
+ 1f8:	e12fff1e 	bx	lr
+ 1fc:	00000ea0 	.word	0x00000ea0
+ 200:	00000000 	.word	0x00000000
+ 204:	000009e8 	.word	0x000009e8
+
+00000208 <frame_dummy>:
+ 208:	e92d4008 	push	{r3, lr}
+ 20c:	e59f3034 	ldr	r3, [pc, #52]	; 248 <frame_dummy+0x40>
+ 210:	e3530000 	cmp	r3, #0
+ 214:	159f0030 	ldrne	r0, [pc, #48]	; 24c <frame_dummy+0x44>
+ 218:	159f1030 	ldrne	r1, [pc, #48]	; 250 <frame_dummy+0x48>
+ 21c:	1320f000 	nopne	{0}
+ 220:	e59f002c 	ldr	r0, [pc, #44]	; 254 <frame_dummy+0x4c>
+ 224:	e5903000 	ldr	r3, [r0]
+ 228:	e3530000 	cmp	r3, #0
+ 22c:	0a000003 	beq	240 <frame_dummy+0x38>
+ 230:	e59f3020 	ldr	r3, [pc, #32]	; 258 <frame_dummy+0x50>
+ 234:	e3530000 	cmp	r3, #0
+ 238:	11a0e00f 	movne	lr, pc
+ 23c:	112fff13 	bxne	r3
+ 240:	e8bd4008 	pop	{r3, lr}
+ 244:	eaffffcb 	b	178 <register_tm_clones>
+ 248:	00000000 	.word	0x00000000
+ 24c:	000009e8 	.word	0x000009e8
+ 250:	00000ea4 	.word	0x00000ea4
+ 254:	00000a50 	.word	0x00000a50
+ 258:	00000000 	.word	0x00000000
+
+0000025c <disable_A9_interrupts>:
+
+/* disable interrupts in the A9 processor */
+void disable_A9_interrupts(void)
+{
+    int status = 0b11010011; // 11: disable interrupte, 0: arm mode, 10011: supervisor mode
+    asm(
+ 25c:	e3a030d3 	mov	r3, #211	; 0xd3
+ 260:	e129f003 	msr	CPSR_fc, r3
+ 264:	e12fff1e 	bx	lr
+
+00000268 <set_A9_IRQ_stack>:
+{
+    int stack, mode;
+    stack = 0xFFFFFFFF - 7; // top of A9 onchip memory, aligned to 8 bytes
+    /* change processor to IRQ mode with interrupts disabled */
+    mode = 0b11010010; // 11: disable interrupte, 0: arm mode, 10010: IRQ mode
+    asm(
+ 268:	e3a030d2 	mov	r3, #210	; 0xd2
+ 26c:	e129f003 	msr	CPSR_fc, r3
+        "msr cpsr, %[ps]"
+        :
+        : [ps] "r" (mode)
+        );
+    /* set banked stack pointer */
+    asm(
+ 270:	e3e03007 	mvn	r3, #7
+ 274:	e1a0d003 	mov	sp, r3
+        :
+        : [ps] "r" (stack)
+        );
+    /* go back to SVC mode before executing subroutine return! */
+    mode = 0b11010011;
+    asm("msr cpsr, %[ps]" : : [ps] "r"(mode));
+ 278:	e3a030d3 	mov	r3, #211	; 0xd3
+ 27c:	e129f003 	msr	CPSR_fc, r3
+ 280:	e12fff1e 	bx	lr
+
+00000284 <config_interrupt>:
+}
+
+/* Config Distributer part of GIC */
+void config_interrupt(int N, int CPU_target)
+{
+ 284:	e52d4004 	push	{r4}		; (str r4, [sp, #-4]!)
+    int reg_offset, index, value, address;
+    /* step 1: Configure the Interrupt Set-Enable Registers (ICDISERn).
+    reg_offset = (integer_div(N / 32) * 4
+    value = 1 << (N mod 32) */
+    reg_offset = (N >> 3) & 0xFFFFFFFC;
+ 288:	e1a031c0 	asr	r3, r0, #3
+ 28c:	e3c33003 	bic	r3, r3, #3
+    index = N & 0x1F;
+    value = 0x1 << index;
+    address = 0xFFFED100 + reg_offset;
+ 290:	e2433b4b 	sub	r3, r3, #76800	; 0x12c00
+    int reg_offset, index, value, address;
+    /* step 1: Configure the Interrupt Set-Enable Registers (ICDISERn).
+    reg_offset = (integer_div(N / 32) * 4
+    value = 1 << (N mod 32) */
+    reg_offset = (N >> 3) & 0xFFFFFFFC;
+    index = N & 0x1F;
+ 294:	e200201f 	and	r2, r0, #31
+    value = 0x1 << index;
+    address = 0xFFFED100 + reg_offset;
+    *(int*)address = *(int*)address | value;
+ 298:	e513c300 	ldr	r12, [r3, #-768]	; 0xfffffd00
+ 29c:	e3a04001 	mov	r4, #1
+ 2a0:	e18c2214 	orr	r2, r12, r4, lsl r2
+ 2a4:	e5032300 	str	r2, [r3, #-768]	; 0xfffffd00
+    reg_offset = integer_div(N / 4) * 4
+    index = N mod 4 */
+    reg_offset = (N & 0xFFFFFFFC);
+    index = N & 0x3;
+    address = 0xFFFED800 + reg_offset + index;
+    *(char *)address = (char)CPU_target;
+ 2a8:	e2400b4a 	sub	r0, r0, #75776	; 0x12800
+ 2ac:	e5c01000 	strb	r1, [r0]
+}
+ 2b0:	e8bd0010 	ldmfd	sp!, {r4}
+ 2b4:	e12fff1e 	bx	lr
+
+000002b8 <config_GIC>:
+
+/* Configure the Generic Interrupt Controller (GIC) */
+void config_GIC(void)
+{
+ 2b8:	e92d4008 	push	{r3, lr}
+    config_interrupt (73, 1); // configure the FPGA KEYs interrupt (73)
+ 2bc:	e3a00049 	mov	r0, #73	; 0x49
+ 2c0:	e3a01001 	mov	r1, #1
+ 2c4:	ebffffee 	bl	284 <config_interrupt>
+    config_interrupt (29, 1); // configure the private timer interrupt (29)
+ 2c8:	e3a0001d 	mov	r0, #29
+ 2cc:	e3a01001 	mov	r1, #1
+ 2d0:	ebffffeb 	bl	284 <config_interrupt>
+    // Set Interrupt Priority Mask Register (ICCPMR). Enable interrupts of all priorities
+    *((int *) 0xFFFEC104) = 0xFFFF;
+ 2d4:	e3e02a13 	mvn	r2, #77824	; 0x13000
+ 2d8:	e30f3fff 	movw	r3, #65535	; 0xffff
+ 2dc:	e5023efb 	str	r3, [r2, #-3835]	; 0xfffff105
+    // Set CPU Interface Control Register (ICCICR). Enable signaling of interrupts
+    *((int *) 0xFFFEC100) = 1;
+ 2e0:	e3a03001 	mov	r3, #1
+ 2e4:	e5023eff 	str	r3, [r2, #-3839]	; 0xfffff101
+    // Configure the Distributor Control Register (ICDDCR) to send pending interrupts to CPUs
+    *((int *) 0xFFFED000) = 1;
+ 2e8:	e3e02a12 	mvn	r2, #73728	; 0x12000
+ 2ec:	e5023fff 	str	r3, [r2, #-4095]	; 0xfffff001
+ 2f0:	e8bd8008 	pop	{r3, pc}
+
+000002f4 <config_KEYs>:
+
+/* Set up the pushbutton KEYs port in the FPGA */
+void config_KEYs(void)
+{
+    volatile int * KEY_ptr = (int *) 0xFF200050; // pushbutton KEY base address
+    *(KEY_ptr + 2) = 0xF; // enable interrupts for KEY0 to KEY3
+ 2f4:	e3a03000 	mov	r3, #0
+ 2f8:	e34f3f20 	movt	r3, #65312	; 0xff20
+ 2fc:	e3a0200f 	mov	r2, #15
+ 300:	e5832058 	str	r2, [r3, #88]	; 0x58
+ 304:	e12fff1e 	bx	lr
+
+00000308 <config_private_timer>:
+/* configure the MPCore private timer */
+void config_private_timer()
+{
+    volatile int* private_timer_ptr = (int*) 0xFFFEC600;
+    // configure the load value
+    *private_timer_ptr = 0x1E8480;
+ 308:	e3e03a13 	mvn	r3, #77824	; 0x13000
+ 30c:	e3082480 	movw	r2, #33920	; 0x8480
+ 310:	e340201e 	movt	r2, #30
+ 314:	e50329ff 	str	r2, [r3, #-2559]	; 0xfffff601
+    // configure the control register
+    *(private_timer_ptr +2 ) = 0b110;
+ 318:	e3a02006 	mov	r2, #6
+ 31c:	e50329f7 	str	r2, [r3, #-2551]	; 0xfffff609
+ 320:	e12fff1e 	bx	lr
+
+00000324 <enable_A9_interrupts>:
+
+/* Turn on interrupts in the ARM processor */
+void enable_A9_interrupts(void)
+{
+    int status = 0b01010011; // 01: enable interrupte, 0: arm mode, 10011: supervisor mode
+    asm(
+ 324:	e3a03053 	mov	r3, #83	; 0x53
+ 328:	e129f003 	msr	CPSR_fc, r3
+ 32c:	e12fff1e 	bx	lr
+
+00000330 <main>:
+int hsecond1 = 5;
+int hsecond0 = 0;
+
+/* the main function */
+int main(void)
+{
+ 330:	e52de004 	push	{lr}		; (str lr, [sp, #-4]!)
+ 334:	e24dd014 	sub	sp, sp, #20
+    disable_A9_interrupts(); // disable interrupts in the A9 processor
+ 338:	ebffffc7 	bl	25c <disable_A9_interrupts>
+    set_A9_IRQ_stack(); // initialize the stack pointer for IRQ mode
+ 33c:	ebffffc9 	bl	268 <set_A9_IRQ_stack>
+    config_GIC(); // configure the general interrupt controller
+ 340:	ebffffdc 	bl	2b8 <config_GIC>
+    config_KEYs(); // configure pushbutton KEYs to generate interrupts
+ 344:	ebffffea 	bl	2f4 <config_KEYs>
+    config_private_timer(); // configure the MPCore private timer
+ 348:	ebffffee 	bl	308 <config_private_timer>
+    enable_A9_interrupts(); // enable interrupts in the A9 processor
+ 34c:	ebfffff4 	bl	324 <enable_A9_interrupts>
+    /* display of the HEX */
+    char number[10] = {0b0111111, //0
+ 350:	e30029ec 	movw	r2, #2540	; 0x9ec
+ 354:	e3402000 	movt	r2, #0
+ 358:	e28d3004 	add	r3, sp, #4
+ 35c:	e5920000 	ldr	r0, [r2]
+ 360:	e5921004 	ldr	r1, [r2, #4]
+ 364:	e8a30003 	stmia	r3!, {r0, r1}
+ 368:	e1d220b8 	ldrh	r2, [r2, #8]
+ 36c:	e1c320b0 	strh	r2, [r3]
+    volatile char* HEX5_ptr = HEX4_ptr + 1;
+    // wait for an interrupt
+    while (1)
+    {
+        // show the new value
+        *HEX0_ptr = number[hsecond0];
+ 370:	e3001ebc 	movw	r1, #3772	; 0xebc
+ 374:	e3401000 	movt	r1, #0
+ 378:	e3a03000 	mov	r3, #0
+ 37c:	e34f3f20 	movt	r3, #65312	; 0xff20
+        *HEX1_ptr = number[hsecond1];
+ 380:	e3002a58 	movw	r2, #2648	; 0xa58
+ 384:	e3402000 	movt	r2, #0
+    volatile char* HEX5_ptr = HEX4_ptr + 1;
+    // wait for an interrupt
+    while (1)
+    {
+        // show the new value
+        *HEX0_ptr = number[hsecond0];
+ 388:	e5910000 	ldr	r0, [r1]
+ 38c:	e28dc010 	add	r12, sp, #16
+ 390:	e08c0000 	add	r0, r12, r0
+ 394:	e550000c 	ldrb	r0, [r0, #-12]
+ 398:	e5c30020 	strb	r0, [r3, #32]
+        *HEX1_ptr = number[hsecond1];
+ 39c:	e5920000 	ldr	r0, [r2]
+ 3a0:	e08c0000 	add	r0, r12, r0
+ 3a4:	e550000c 	ldrb	r0, [r0, #-12]
+ 3a8:	e5c30021 	strb	r0, [r3, #33]	; 0x21
+        *HEX2_ptr = number[second0];
+ 3ac:	e5910004 	ldr	r0, [r1, #4]
+ 3b0:	e08c0000 	add	r0, r12, r0
+ 3b4:	e550000c 	ldrb	r0, [r0, #-12]
+ 3b8:	e5c30022 	strb	r0, [r3, #34]	; 0x22
+        *HEX3_ptr = number[second1];
+ 3bc:	e5920004 	ldr	r0, [r2, #4]
+ 3c0:	e08c0000 	add	r0, r12, r0
+ 3c4:	e550000c 	ldrb	r0, [r0, #-12]
+ 3c8:	e5c30023 	strb	r0, [r3, #35]	; 0x23
+        *HEX4_ptr = number[minite0];
+ 3cc:	e5920008 	ldr	r0, [r2, #8]
+ 3d0:	e08c0000 	add	r0, r12, r0
+ 3d4:	e550000c 	ldrb	r0, [r0, #-12]
+ 3d8:	e5c30030 	strb	r0, [r3, #48]	; 0x30
+        *HEX5_ptr = number[minite1];
+ 3dc:	e592000c 	ldr	r0, [r2, #12]
+ 3e0:	e08c0000 	add	r0, r12, r0
+ 3e4:	e550000c 	ldrb	r0, [r0, #-12]
+ 3e8:	e5c30031 	strb	r0, [r3, #49]	; 0x31
+ 3ec:	eaffffe5 	b	388 <main+0x58>
+
+000003f0 <pushbutton_ISR>:
+void pushbutton_ISR(void)
+{
+    volatile int* private_timer_ptr = (int*) 0xFFFEC600;
+    volatile int * KEY_ptr = (int *) 0xFF200050;
+    int press;
+    press = *(KEY_ptr + 3); // read the pushbutton interrupt register
+ 3f0:	e3a03000 	mov	r3, #0
+ 3f4:	e34f3f20 	movt	r3, #65312	; 0xff20
+ 3f8:	e593205c 	ldr	r2, [r3, #92]	; 0x5c
+    *(KEY_ptr + 3) = press; // Clear the interrupt
+ 3fc:	e583205c 	str	r2, [r3, #92]	; 0x5c
+    if (press & 0x8) // KEY3
+ 400:	e3120008 	tst	r2, #8
+ 404:	012fff1e 	bxeq	lr
+    {
+        if(*(private_timer_ptr + 2) & 0x1)
+ 408:	e3e03a13 	mvn	r3, #77824	; 0x13000
+ 40c:	e51339f7 	ldr	r3, [r3, #-2551]	; 0xfffff609
+ 410:	e3130001 	tst	r3, #1
+        {
+            // configure the control register, stop private timer
+            *(private_timer_ptr + 2) = *(private_timer_ptr + 2) & 0xFFFFFFFE;
+ 414:	e3e03a13 	mvn	r3, #77824	; 0x13000
+ 418:	e51329f7 	ldr	r2, [r3, #-2551]	; 0xfffff609
+ 41c:	13c22001 	bicne	r2, r2, #1
+        }
+        else
+        {
+            // configure the control register, start private timer
+            *(private_timer_ptr + 2) = *(private_timer_ptr + 2) | 0x1;
+ 420:	03822001 	orreq	r2, r2, #1
+ 424:	e50329f7 	str	r2, [r3, #-2551]	; 0xfffff609
+ 428:	e12fff1e 	bx	lr
+
+0000042c <private_timer_ISR>:
+}
+
+void private_timer_ISR(void)
+{
+    volatile int* private_timer_ptr = (int*) 0xFFFEC600;
+    *(private_timer_ptr + 3) = 0x0; //clear the interrupt
+ 42c:	e3a02000 	mov	r2, #0
+ 430:	e3e03a13 	mvn	r3, #77824	; 0x13000
+ 434:	e50329f3 	str	r2, [r3, #-2547]	; 0xfffff60d
+    hsecond0 = hsecond0 + 1;
+ 438:	e3003ebc 	movw	r3, #3772	; 0xebc
+ 43c:	e3403000 	movt	r3, #0
+ 440:	e5933000 	ldr	r3, [r3]
+ 444:	e2833001 	add	r3, r3, #1
+    if (hsecond0 > 9)
+ 448:	e3530009 	cmp	r3, #9
+ 44c:	ca000003 	bgt	460 <private_timer_ISR+0x34>
+
+void private_timer_ISR(void)
+{
+    volatile int* private_timer_ptr = (int*) 0xFFFEC600;
+    *(private_timer_ptr + 3) = 0x0; //clear the interrupt
+    hsecond0 = hsecond0 + 1;
+ 450:	e3002ebc 	movw	r2, #3772	; 0xebc
+ 454:	e3402000 	movt	r2, #0
+ 458:	e5823000 	str	r3, [r2]
+ 45c:	e12fff1e 	bx	lr
+    if (hsecond0 > 9)
+    {
+        hsecond0 = 0;
+ 460:	e3003ebc 	movw	r3, #3772	; 0xebc
+ 464:	e3403000 	movt	r3, #0
+ 468:	e3a02000 	mov	r2, #0
+ 46c:	e5832000 	str	r2, [r3]
+        hsecond1 = hsecond1 + 1;
+ 470:	e3003a58 	movw	r3, #2648	; 0xa58
+ 474:	e3403000 	movt	r3, #0
+ 478:	e5933000 	ldr	r3, [r3]
+ 47c:	e2833001 	add	r3, r3, #1
+    }
+    else
+    return;
+    if (hsecond1 > 9)
+ 480:	e3530009 	cmp	r3, #9
+ 484:	ca000003 	bgt	498 <private_timer_ISR+0x6c>
+    *(private_timer_ptr + 3) = 0x0; //clear the interrupt
+    hsecond0 = hsecond0 + 1;
+    if (hsecond0 > 9)
+    {
+        hsecond0 = 0;
+        hsecond1 = hsecond1 + 1;
+ 488:	e3002a58 	movw	r2, #2648	; 0xa58
+ 48c:	e3402000 	movt	r2, #0
+ 490:	e5823000 	str	r3, [r2]
+ 494:	e12fff1e 	bx	lr
+    }
+    else
+    return;
+    if (hsecond1 > 9)
+    {
+        hsecond1 = 0;
+ 498:	e3003a58 	movw	r3, #2648	; 0xa58
+ 49c:	e3403000 	movt	r3, #0
+ 4a0:	e3a02000 	mov	r2, #0
+ 4a4:	e5832000 	str	r2, [r3]
+        second0 = second0 + 1;
+ 4a8:	e3003ebc 	movw	r3, #3772	; 0xebc
+ 4ac:	e3403000 	movt	r3, #0
+ 4b0:	e5933004 	ldr	r3, [r3, #4]
+ 4b4:	e2833001 	add	r3, r3, #1
+    }
+    else
+    return;
+    if (second0 > 9)
+ 4b8:	e3530009 	cmp	r3, #9
+ 4bc:	ca000003 	bgt	4d0 <private_timer_ISR+0xa4>
+    else
+    return;
+    if (hsecond1 > 9)
+    {
+        hsecond1 = 0;
+        second0 = second0 + 1;
+ 4c0:	e3002ebc 	movw	r2, #3772	; 0xebc
+ 4c4:	e3402000 	movt	r2, #0
+ 4c8:	e5823004 	str	r3, [r2, #4]
+ 4cc:	e12fff1e 	bx	lr
+    }
+    else
+    return;
+    if (second0 > 9)
+    {
+        second0 = 0;
+ 4d0:	e3003ebc 	movw	r3, #3772	; 0xebc
+ 4d4:	e3403000 	movt	r3, #0
+ 4d8:	e3a02000 	mov	r2, #0
+ 4dc:	e5832004 	str	r2, [r3, #4]
+        second1 = second1 + 1;
+ 4e0:	e3003a58 	movw	r3, #2648	; 0xa58
+ 4e4:	e3403000 	movt	r3, #0
+ 4e8:	e5933004 	ldr	r3, [r3, #4]
+ 4ec:	e2833001 	add	r3, r3, #1
+    }
+    else
+    return;
+    if (second1 > 5)
+ 4f0:	e3530005 	cmp	r3, #5
+ 4f4:	ca000003 	bgt	508 <private_timer_ISR+0xdc>
+    else
+    return;
+    if (second0 > 9)
+    {
+        second0 = 0;
+        second1 = second1 + 1;
+ 4f8:	e3002a58 	movw	r2, #2648	; 0xa58
+ 4fc:	e3402000 	movt	r2, #0
+ 500:	e5823004 	str	r3, [r2, #4]
+ 504:	e12fff1e 	bx	lr
+    }
+    else
+    return;
+    if (second1 > 5)
+    {
+        second1 = 0;
+ 508:	e3003a58 	movw	r3, #2648	; 0xa58
+ 50c:	e3403000 	movt	r3, #0
+ 510:	e3a02000 	mov	r2, #0
+ 514:	e5832004 	str	r2, [r3, #4]
+        minite0 = minite0 + 1;
+ 518:	e5933008 	ldr	r3, [r3, #8]
+ 51c:	e2833001 	add	r3, r3, #1
+    }
+    else
+    return;
+    if (minite0 > 9)
+ 520:	e3530009 	cmp	r3, #9
+ 524:	ca000003 	bgt	538 <private_timer_ISR+0x10c>
+    else
+    return;
+    if (second1 > 5)
+    {
+        second1 = 0;
+        minite0 = minite0 + 1;
+ 528:	e3002a58 	movw	r2, #2648	; 0xa58
+ 52c:	e3402000 	movt	r2, #0
+ 530:	e5823008 	str	r3, [r2, #8]
+ 534:	e12fff1e 	bx	lr
+    }
+    else
+    return;
+    if (minite0 > 9)
+    {
+        minite0 = 0;
+ 538:	e3003a58 	movw	r3, #2648	; 0xa58
+ 53c:	e3403000 	movt	r3, #0
+ 540:	e3a02000 	mov	r2, #0
+ 544:	e5832008 	str	r2, [r3, #8]
+        minite1 = minite1 + 1;
+ 548:	e593300c 	ldr	r3, [r3, #12]
+ 54c:	e2833001 	add	r3, r3, #1
+    }
+    else
+    return;
+    if (minite1 > 5)
+ 550:	e3530005 	cmp	r3, #5
+    else
+    return;
+    if (minite0 > 9)
+    {
+        minite0 = 0;
+        minite1 = minite1 + 1;
+ 554:	d3002a58 	movwle	r2, #2648	; 0xa58
+ 558:	d3402000 	movtle	r2, #0
+ 55c:	d582300c 	strle	r3, [r2, #12]
+    }
+    else
+    return;
+    if (minite1 > 5)
+    {
+        minite1 = 0;
+ 560:	c3003a58 	movwgt	r3, #2648	; 0xa58
+ 564:	c3403000 	movtgt	r3, #0
+ 568:	c3a02000 	movgt	r2, #0
+ 56c:	c583200c 	strgt	r2, [r3, #12]
+ 570:	e12fff1e 	bx	lr
+
+00000574 <__cs3_isr_irq>:
+
+/* Define the IRQ exception handler */
+void pushbutton_ISR(void); //declare
+void private_timer_ISR(void); //declare
+void __attribute__((interrupt)) __cs3_isr_irq(void)
+{
+ 574:	e24ee004 	sub	lr, lr, #4
+ 578:	e92d503f 	push	{r0, r1, r2, r3, r4, r5, r12, lr}
+    // Read the ICCIAR from the CPU Interface in the GIC
+    int interrupt_ID = *((int *)0xFFFEC10C);
+ 57c:	e3e03a13 	mvn	r3, #77824	; 0x13000
+ 580:	e5134ef3 	ldr	r4, [r3, #-3827]	; 0xfffff10d
+    if (interrupt_ID == 73) // check if interrupt is from the KEYs
+ 584:	e3540049 	cmp	r4, #73	; 0x49
+ 588:	1a000001 	bne	594 <__cs3_isr_irq+0x20>
+    {
+        pushbutton_ISR();
+ 58c:	ebffff97 	bl	3f0 <pushbutton_ISR>
+ 590:	ea000004 	b	5a8 <__cs3_isr_irq+0x34>
+    }
+    else if (interrupt_ID == 29)
+ 594:	e354001d 	cmp	r4, #29
+ 598:	1a000001 	bne	5a4 <__cs3_isr_irq+0x30>
+    {
+        private_timer_ISR();
+ 59c:	ebffffa2 	bl	42c <private_timer_ISR>
+ 5a0:	ea000000 	b	5a8 <__cs3_isr_irq+0x34>
+ 5a4:	eafffffe 	b	5a4 <__cs3_isr_irq+0x30>
+    else
+    {
+        while (1); // if unexpected, then stay here
+    }
+    // Write to the End of Interrupt Register (ICCEOIR)
+    *((int *)0xFFFEC110) = interrupt_ID;
+ 5a8:	e3e03a13 	mvn	r3, #77824	; 0x13000
+ 5ac:	e5034eef 	str	r4, [r3, #-3823]	; 0xfffff111
+ 5b0:	e8fd903f 	ldm	sp!, {r0, r1, r2, r3, r4, r5, r12, pc}^
+
+000005b4 <__cs3_reset>:
+    else
+    return;
+}
+
+// Define the remaining exception handlers
+void __attribute__((interrupt)) __cs3_reset(void) {
+ 5b4:	eafffffe 	b	5b4 <__cs3_reset>
+
+000005b8 <__cs3_isr_undef>:
+while (1);
+}
+void __attribute__((interrupt)) __cs3_isr_undef(void) {
+ 5b8:	eafffffe 	b	5b8 <__cs3_isr_undef>
+
+000005bc <__cs3_isr_swi>:
+while (1);
+}
+void __attribute__((interrupt)) __cs3_isr_swi(void) {
+ 5bc:	eafffffe 	b	5bc <__cs3_isr_swi>
+
+000005c0 <__cs3_isr_pabort>:
+while (1);
+}
+void __attribute__((interrupt)) __cs3_isr_pabort(void) {
+ 5c0:	eafffffe 	b	5c0 <__cs3_isr_pabort>
+
+000005c4 <__cs3_isr_dabort>:
+while (1);
+}
+void __attribute__((interrupt)) __cs3_isr_dabort(void) {
+ 5c4:	eafffffe 	b	5c4 <__cs3_isr_dabort>
+
+000005c8 <__cs3_isr_fiq>:
+while (1);
+}
+void __attribute__((interrupt)) __cs3_isr_fiq(void) {
+ 5c8:	eafffffe 	b	5c8 <__cs3_isr_fiq>
+
+000005cc <atexit>:
+ 5cc:	e1a01000 	mov	r1, r0
+ 5d0:	e3a00000 	mov	r0, #0
+ 5d4:	e92d4008 	push	{r3, lr}
+ 5d8:	e1a02000 	mov	r2, r0
+ 5dc:	e1a03000 	mov	r3, r0
+ 5e0:	eb00000e 	bl	620 <__register_exitproc>
+ 5e4:	e8bd4008 	pop	{r3, lr}
+ 5e8:	e12fff1e 	bx	lr
+
+000005ec <exit>:
+ 5ec:	e92d4008 	push	{r3, lr}
+ 5f0:	e3a01000 	mov	r1, #0
+ 5f4:	e1a04000 	mov	r4, r0
+ 5f8:	eb000045 	bl	714 <__call_exitprocs>
+ 5fc:	e59f3018 	ldr	r3, [pc, #24]	; 61c <exit+0x30>
+ 600:	e5930000 	ldr	r0, [r3]
+ 604:	e590303c 	ldr	r3, [r0, #60]	; 0x3c
+ 608:	e3530000 	cmp	r3, #0
+ 60c:	11a0e00f 	movne	lr, pc
+ 610:	112fff13 	bxne	r3
+ 614:	e1a00004 	mov	r0, r4
+ 618:	eb0000c9 	bl	944 <_exit>
+ 61c:	000009f8 	.word	0x000009f8
+
+00000620 <__register_exitproc>:
+ 620:	e59fc0e4 	ldr	r12, [pc, #228]	; 70c <__register_exitproc+0xec>
+ 624:	e92d41f0 	push	{r4, r5, r6, r7, r8, lr}
+ 628:	e59c4000 	ldr	r4, [r12]
+ 62c:	e594c148 	ldr	r12, [r4, #328]	; 0x148
+ 630:	e35c0000 	cmp	r12, #0
+ 634:	0284cf53 	addeq	r12, r4, #332	; 0x14c
+ 638:	e59c5004 	ldr	r5, [r12, #4]
+ 63c:	0584c148 	streq	r12, [r4, #328]	; 0x148
+ 640:	e355001f 	cmp	r5, #31
+ 644:	e24dd010 	sub	sp, sp, #16
+ 648:	e1a06000 	mov	r6, r0
+ 64c:	da000015 	ble	6a8 <__register_exitproc+0x88>
+ 650:	e59f00b8 	ldr	r0, [pc, #184]	; 710 <__register_exitproc+0xf0>
+ 654:	e3500000 	cmp	r0, #0
+ 658:	1a000001 	bne	664 <__register_exitproc+0x44>
+ 65c:	e3e00000 	mvn	r0, #0
+ 660:	ea000018 	b	6c8 <__register_exitproc+0xa8>
+ 664:	e3a00e19 	mov	r0, #400	; 0x190
+ 668:	e58d100c 	str	r1, [sp, #12]
+ 66c:	e58d2008 	str	r2, [sp, #8]
+ 670:	e58d3004 	str	r3, [sp, #4]
+ 674:	e320f000 	nop	{0}
+ 678:	e250c000 	subs	r12, r0, #0
+ 67c:	e59d100c 	ldr	r1, [sp, #12]
+ 680:	e59d2008 	ldr	r2, [sp, #8]
+ 684:	e59d3004 	ldr	r3, [sp, #4]
+ 688:	0afffff3 	beq	65c <__register_exitproc+0x3c>
+ 68c:	e5945148 	ldr	r5, [r4, #328]	; 0x148
+ 690:	e3a00000 	mov	r0, #0
+ 694:	e58c0004 	str	r0, [r12, #4]
+ 698:	e58c5000 	str	r5, [r12]
+ 69c:	e584c148 	str	r12, [r4, #328]	; 0x148
+ 6a0:	e58c0188 	str	r0, [r12, #392]	; 0x188
+ 6a4:	e58c018c 	str	r0, [r12, #396]	; 0x18c
+ 6a8:	e3560000 	cmp	r6, #0
+ 6ac:	e59c4004 	ldr	r4, [r12, #4]
+ 6b0:	1a000007 	bne	6d4 <__register_exitproc+0xb4>
+ 6b4:	e2843002 	add	r3, r4, #2
+ 6b8:	e2844001 	add	r4, r4, #1
+ 6bc:	e78c1103 	str	r1, [r12, r3, lsl #2]
+ 6c0:	e58c4004 	str	r4, [r12, #4]
+ 6c4:	e3a00000 	mov	r0, #0
+ 6c8:	e28dd010 	add	sp, sp, #16
+ 6cc:	e8bd41f0 	pop	{r4, r5, r6, r7, r8, lr}
+ 6d0:	e12fff1e 	bx	lr
+ 6d4:	e3a00001 	mov	r0, #1
+ 6d8:	e1a00410 	lsl	r0, r0, r4
+ 6dc:	e08c8104 	add	r8, r12, r4, lsl #2
+ 6e0:	e3560002 	cmp	r6, #2
+ 6e4:	e59c7188 	ldr	r7, [r12, #392]	; 0x188
+ 6e8:	e5883108 	str	r3, [r8, #264]	; 0x108
+ 6ec:	059c318c 	ldreq	r3, [r12, #396]	; 0x18c
+ 6f0:	e1877000 	orr	r7, r7, r0
+ 6f4:	01830000 	orreq	r0, r3, r0
+ 6f8:	e1a05008 	mov	r5, r8
+ 6fc:	e5882088 	str	r2, [r8, #136]	; 0x88
+ 700:	e58c7188 	str	r7, [r12, #392]	; 0x188
+ 704:	058c018c 	streq	r0, [r12, #396]	; 0x18c
+ 708:	eaffffe9 	b	6b4 <__register_exitproc+0x94>
+ 70c:	000009f8 	.word	0x000009f8
+ 710:	00000000 	.word	0x00000000
+
+00000714 <__call_exitprocs>:
+ 714:	e92d4ff0 	push	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
+ 718:	e59f3168 	ldr	r3, [pc, #360]	; 888 <__call_exitprocs+0x174>
+ 71c:	e5933000 	ldr	r3, [r3]
+ 720:	e24dd014 	sub	sp, sp, #20
+ 724:	e58d3004 	str	r3, [sp, #4]
+ 728:	e2833f52 	add	r3, r3, #328	; 0x148
+ 72c:	e58d0008 	str	r0, [sp, #8]
+ 730:	e58d300c 	str	r3, [sp, #12]
+ 734:	e1a07001 	mov	r7, r1
+ 738:	e3a08001 	mov	r8, #1
+ 73c:	e59d3004 	ldr	r3, [sp, #4]
+ 740:	e5936148 	ldr	r6, [r3, #328]	; 0x148
+ 744:	e3560000 	cmp	r6, #0
+ 748:	e59db00c 	ldr	r11, [sp, #12]
+ 74c:	0a000033 	beq	820 <__call_exitprocs+0x10c>
+ 750:	e5965004 	ldr	r5, [r6, #4]
+ 754:	e2554001 	subs	r4, r5, #1
+ 758:	5286a088 	addpl	r10, r6, #136	; 0x88
+ 75c:	5285501f 	addpl	r5, r5, #31
+ 760:	508a5105 	addpl	r5, r10, r5, lsl #2
+ 764:	5a000007 	bpl	788 <__call_exitprocs+0x74>
+ 768:	ea000029 	b	814 <__call_exitprocs+0x100>
+ 76c:	e5953000 	ldr	r3, [r5]
+ 770:	e1530007 	cmp	r3, r7
+ 774:	0a000005 	beq	790 <__call_exitprocs+0x7c>
+ 778:	e2444001 	sub	r4, r4, #1
+ 77c:	e3740001 	cmn	r4, #1
+ 780:	e2455004 	sub	r5, r5, #4
+ 784:	0a000022 	beq	814 <__call_exitprocs+0x100>
+ 788:	e3570000 	cmp	r7, #0
+ 78c:	1afffff6 	bne	76c <__call_exitprocs+0x58>
+ 790:	e5963004 	ldr	r3, [r6, #4]
+ 794:	e06a2005 	rsb	r2, r10, r5
+ 798:	e2433001 	sub	r3, r3, #1
+ 79c:	e0862002 	add	r2, r6, r2
+ 7a0:	e1530004 	cmp	r3, r4
+ 7a4:	e5123078 	ldr	r3, [r2, #-120]	; 0xffffff88
+ 7a8:	13a01000 	movne	r1, #0
+ 7ac:	05864004 	streq	r4, [r6, #4]
+ 7b0:	15021078 	strne	r1, [r2, #-120]	; 0xffffff88
+ 7b4:	e3530000 	cmp	r3, #0
+ 7b8:	0affffee 	beq	778 <__call_exitprocs+0x64>
+ 7bc:	e1a02418 	lsl	r2, r8, r4
+ 7c0:	e5961188 	ldr	r1, [r6, #392]	; 0x188
+ 7c4:	e1120001 	tst	r2, r1
+ 7c8:	e5969004 	ldr	r9, [r6, #4]
+ 7cc:	0a000016 	beq	82c <__call_exitprocs+0x118>
+ 7d0:	e596118c 	ldr	r1, [r6, #396]	; 0x18c
+ 7d4:	e1120001 	tst	r2, r1
+ 7d8:	1a000016 	bne	838 <__call_exitprocs+0x124>
+ 7dc:	e59d0008 	ldr	r0, [sp, #8]
+ 7e0:	e5151080 	ldr	r1, [r5, #-128]	; 0xffffff80
+ 7e4:	e1a0e00f 	mov	lr, pc
+ 7e8:	e12fff13 	bx	r3
+ 7ec:	e5963004 	ldr	r3, [r6, #4]
+ 7f0:	e1530009 	cmp	r3, r9
+ 7f4:	1affffd0 	bne	73c <__call_exitprocs+0x28>
+ 7f8:	e59b3000 	ldr	r3, [r11]
+ 7fc:	e1530006 	cmp	r3, r6
+ 800:	1affffcd 	bne	73c <__call_exitprocs+0x28>
+ 804:	e2444001 	sub	r4, r4, #1
+ 808:	e3740001 	cmn	r4, #1
+ 80c:	e2455004 	sub	r5, r5, #4
+ 810:	1affffdc 	bne	788 <__call_exitprocs+0x74>
+ 814:	e59f1070 	ldr	r1, [pc, #112]	; 88c <__call_exitprocs+0x178>
+ 818:	e3510000 	cmp	r1, #0
+ 81c:	1a000009 	bne	848 <__call_exitprocs+0x134>
+ 820:	e28dd014 	add	sp, sp, #20
+ 824:	e8bd4ff0 	pop	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
+ 828:	e12fff1e 	bx	lr
+ 82c:	e1a0e00f 	mov	lr, pc
+ 830:	e12fff13 	bx	r3
+ 834:	eaffffec 	b	7ec <__call_exitprocs+0xd8>
+ 838:	e5150080 	ldr	r0, [r5, #-128]	; 0xffffff80
+ 83c:	e1a0e00f 	mov	lr, pc
+ 840:	e12fff13 	bx	r3
+ 844:	eaffffe8 	b	7ec <__call_exitprocs+0xd8>
+ 848:	e5963004 	ldr	r3, [r6, #4]
+ 84c:	e3530000 	cmp	r3, #0
+ 850:	e5963000 	ldr	r3, [r6]
+ 854:	1a000008 	bne	87c <__call_exitprocs+0x168>
+ 858:	e3530000 	cmp	r3, #0
+ 85c:	0a000006 	beq	87c <__call_exitprocs+0x168>
+ 860:	e1a00006 	mov	r0, r6
+ 864:	e58b3000 	str	r3, [r11]
+ 868:	e320f000 	nop	{0}
+ 86c:	e59b6000 	ldr	r6, [r11]
+ 870:	e3560000 	cmp	r6, #0
+ 874:	1affffb5 	bne	750 <__call_exitprocs+0x3c>
+ 878:	eaffffe8 	b	820 <__call_exitprocs+0x10c>
+ 87c:	e1a0b006 	mov	r11, r6
+ 880:	e1a06003 	mov	r6, r3
+ 884:	eafffff9 	b	870 <__call_exitprocs+0x15c>
+ 888:	000009f8 	.word	0x000009f8
+ 88c:	00000000 	.word	0x00000000
+
+00000890 <register_fini>:
+ 890:	e92d4008 	push	{r3, lr}
+ 894:	e59f3010 	ldr	r3, [pc, #16]	; 8ac <register_fini+0x1c>
+ 898:	e3530000 	cmp	r3, #0
+ 89c:	159f000c 	ldrne	r0, [pc, #12]	; 8b0 <register_fini+0x20>
+ 8a0:	1bffff49 	blne	5cc <atexit>
+ 8a4:	e8bd4008 	pop	{r3, lr}
+ 8a8:	e12fff1e 	bx	lr
+ 8ac:	00000a20 	.word	0x00000a20
+ 8b0:	000008b4 	.word	0x000008b4
+
+000008b4 <__libc_fini_array>:
+ 8b4:	e92d4038 	push	{r3, r4, r5, lr}
+ 8b8:	e59f5030 	ldr	r5, [pc, #48]	; 8f0 <__libc_fini_array+0x3c>
+ 8bc:	e59f4030 	ldr	r4, [pc, #48]	; 8f4 <__libc_fini_array+0x40>
+ 8c0:	e0654004 	rsb	r4, r5, r4
+ 8c4:	e1b04144 	asrs	r4, r4, #2
+ 8c8:	10855104 	addne	r5, r5, r4, lsl #2
+ 8cc:	0a000004 	beq	8e4 <__libc_fini_array+0x30>
+ 8d0:	e5353004 	ldr	r3, [r5, #-4]!
+ 8d4:	e1a0e00f 	mov	lr, pc
+ 8d8:	e12fff13 	bx	r3
+ 8dc:	e2544001 	subs	r4, r4, #1
+ 8e0:	1afffffa 	bne	8d0 <__libc_fini_array+0x1c>
+ 8e4:	eb00004d 	bl	a20 <__libc_fini>
+ 8e8:	e8bd4038 	pop	{r3, r4, r5, lr}
+ 8ec:	e12fff1e 	bx	lr
+ 8f0:	00000a38 	.word	0x00000a38
+ 8f4:	00000a3c 	.word	0x00000a3c
+
+000008f8 <__cs3_premain>:
+ 8f8:	e92d4008 	push	{r3, lr}
+ 8fc:	eb000017 	bl	960 <__libc_init_array>
+ 900:	e59f3030 	ldr	r3, [pc, #48]	; 938 <__cs3_premain+0x40>
+ 904:	e3530000 	cmp	r3, #0
+ 908:	15930000 	ldrne	r0, [r3]
+ 90c:	01a00003 	moveq	r0, r3
+ 910:	e59f3024 	ldr	r3, [pc, #36]	; 93c <__cs3_premain+0x44>
+ 914:	e3530000 	cmp	r3, #0
+ 918:	15931000 	ldrne	r1, [r3]
+ 91c:	01a01003 	moveq	r1, r3
+ 920:	e3a02000 	mov	r2, #0
+ 924:	ebfffe81 	bl	330 <main>
+ 928:	e59f3010 	ldr	r3, [pc, #16]	; 940 <__cs3_premain+0x48>
+ 92c:	e3530000 	cmp	r3, #0
+ 930:	1bffff2d 	blne	5ec <exit>
+ 934:	eafffffe 	b	934 <__cs3_premain+0x3c>
+	...
+ 940:	000005ec 	.word	0x000005ec
+
+00000944 <_exit>:
+ 944:	e52de004 	push	{lr}		; (str lr, [sp, #-4]!)
+ 948:	e3a00018 	mov	r0, #24
+ 94c:	e59f1004 	ldr	r1, [pc, #4]	; 958 <_exit+0x14>
+ 950:	ef123456 	svc	0x00123456
+ 954:	eafffffe 	b	954 <_exit+0x10>
+ 958:	00020026 	.word	0x00020026
+
+0000095c <__cs3_isr_interrupt>:
+ 95c:	eafffffe 	b	95c <__cs3_isr_interrupt>
+
+00000960 <__libc_init_array>:
+ 960:	e92d4070 	push	{r4, r5, r6, lr}
+ 964:	e59f506c 	ldr	r5, [pc, #108]	; 9d8 <__libc_init_array+0x78>
+ 968:	e59f606c 	ldr	r6, [pc, #108]	; 9dc <__libc_init_array+0x7c>
+ 96c:	e0656006 	rsb	r6, r5, r6
+ 970:	e1b06146 	asrs	r6, r6, #2
+ 974:	12455004 	subne	r5, r5, #4
+ 978:	13a04000 	movne	r4, #0
+ 97c:	0a000005 	beq	998 <__libc_init_array+0x38>
+ 980:	e5b53004 	ldr	r3, [r5, #4]!
+ 984:	e2844001 	add	r4, r4, #1
+ 988:	e1a0e00f 	mov	lr, pc
+ 98c:	e12fff13 	bx	r3
+ 990:	e1560004 	cmp	r6, r4
+ 994:	1afffff9 	bne	980 <__libc_init_array+0x20>
+ 998:	e59f5040 	ldr	r5, [pc, #64]	; 9e0 <__libc_init_array+0x80>
+ 99c:	e59f6040 	ldr	r6, [pc, #64]	; 9e4 <__libc_init_array+0x84>
+ 9a0:	e0656006 	rsb	r6, r5, r6
+ 9a4:	eb000015 	bl	a00 <_init>
+ 9a8:	e1b06146 	asrs	r6, r6, #2
+ 9ac:	12455004 	subne	r5, r5, #4
+ 9b0:	13a04000 	movne	r4, #0
+ 9b4:	0a000005 	beq	9d0 <__libc_init_array+0x70>
+ 9b8:	e5b53004 	ldr	r3, [r5, #4]!
+ 9bc:	e2844001 	add	r4, r4, #1
+ 9c0:	e1a0e00f 	mov	lr, pc
+ 9c4:	e12fff13 	bx	r3
+ 9c8:	e1560004 	cmp	r6, r4
+ 9cc:	1afffff9 	bne	9b8 <__libc_init_array+0x58>
+ 9d0:	e8bd4070 	pop	{r4, r5, r6, lr}
+ 9d4:	e12fff1e 	bx	lr
+ 9d8:	00000a18 	.word	0x00000a18
+ 9dc:	00000a18 	.word	0x00000a18
+ 9e0:	00000a18 	.word	0x00000a18
+ 9e4:	00000a20 	.word	0x00000a20
+
+Disassembly of section .rodata:
+
+000009ec <_global_impure_ptr-0xc>:
+ 9ec:	4f5b063f 	.word	0x4f5b063f
+ 9f0:	077d6d66 	.word	0x077d6d66
+ 9f4:	00006f7f 	.word	0x00006f7f
+
+000009f8 <_global_impure_ptr>:
+ 9f8:	00000a70 00000043                       p...C...
+
+00000a00 <_init>:
+ a00:	e1a0c00d 	mov	r12, sp
+ a04:	e92ddff8 	push	{r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, lr, pc}
+ a08:	e24cb004 	sub	r11, r12, #4
+ a0c:	e24bd028 	sub	sp, r11, #40	; 0x28
+ a10:	e89d6ff0 	ldm	sp, {r4, r5, r6, r7, r8, r9, r10, r11, sp, lr}
+ a14:	e12fff1e 	bx	lr
+
+00000a18 <__init_array_start>:
+ a18:	00000890 	.word	0x00000890
+
+00000a1c <__frame_dummy_init_array_entry>:
+ a1c:	00000208                                ....
+
+00000a20 <__libc_fini>:
+ a20:	e1a0c00d 	mov	r12, sp
+ a24:	e92ddff8 	push	{r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, lr, pc}
+ a28:	e24cb004 	sub	r11, r12, #4
+ a2c:	e24bd028 	sub	sp, r11, #40	; 0x28
+ a30:	e89d6ff0 	ldm	sp, {r4, r5, r6, r7, r8, r9, r10, r11, sp, lr}
+ a34:	e12fff1e 	bx	lr
+
+00000a38 <__fini_array_start>:
+ a38:	000001c4 	.word	0x000001c4
+
+00000a3c <__cs3_regions>:
+ a3c:	00000000 	.word	0x00000000
+ a40:	00000040 	.word	0x00000040
+ a44:	00000040 	.word	0x00000040
+ a48:	00000e60 	.word	0x00000e60
+ a4c:	00000028 	.word	0x00000028
