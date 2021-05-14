@@ -1,7 +1,7 @@
 /*
-Function: draw lines on screen with VGA output
+Function: draw lines on screen with VGA output. Move the horizontal line up and down.
 author: Cai Tianhong
-date: 2021/5/12 
+date: 2021/5/13
 */
 
 volatile int pixel_buffer_start; // global variable
@@ -9,16 +9,35 @@ volatile int pixel_buffer_start; // global variable
 /*declare*/
 void clear_screen();
 void draw_line(int x0, int y0, int x1, int y1, short int color);
+void wait_for_vsync(); //swap front and back buffers on VGA vertical syncronization
 int main(void)
 {
     volatile int* pixel_ctrl_ptr = (int*) 0xFF203020;
     /* Read the location of the pixel buffer from the pixel buffer controller */
     pixel_buffer_start = *pixel_ctrl_ptr;
+    *(pixel_ctrl_ptr + 1) = pixel_buffer_start;
     clear_screen();
-    draw_line(0, 0, 319, 239, 0x001F); // this line is blue
-    draw_line(0, 239, 319, 0, 0x07E0); // this line is green
-    draw_line(0, 0, 100, 239, 0xF800); // this line is red
-    draw_line(0, 239, 100, 0, 0xF81F); // this line is a pink color
+    draw_line(0, 0, 319, 0, 0x001F); // draw the top line in blue
+    wait_for_vsync();
+    int y = 0;
+    while (1)
+    {
+        while (y <= 239)
+        {
+            draw_line(0, y, 319, y, 0); // earse the line
+            y = y + 1;
+            draw_line(0, y, 319, y, 0x001F); // draw the next line
+            wait_for_vsync();
+        }
+        y = y - 1;
+        while (y >= 0)
+        {
+            draw_line(0, y, 319, y, 0); // earse the line
+            y = y - 1;
+            draw_line(0, y, 319, y, 0x001F); // draw the next line
+            wait_for_vsync();
+        }
+    }
     return 0;
 }
 
@@ -107,4 +126,15 @@ void plot_pixel(int x, int y, short int color)
     short int* pixel_address;
     pixel_address = (short int*)(pixel_buffer_start + (y << 10) + (x << 1));
     *pixel_address = color;
+}
+
+/* swap front and back buffers on VGA vertical syncronization */
+void wait_for_vsync()
+{
+    volatile int* pixel_ctrl_ptr = (int*) 0xFF203020;
+    *pixel_ctrl_ptr = 0x1;
+    while(*(pixel_ctrl_ptr + 3) & 0x1)
+    {
+        //wait here until swap
+    }
 }
