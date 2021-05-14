@@ -8,6 +8,7 @@ volatile int pixel_buffer_start; // global variable
 
 void clear_screen();
 void wait_for_vsync (); // swap front and back buffers on VGA vertical sync
+void draw_line(int x0, int y0, int x1, int y1, short int color);
 int main(void)
 {
     volatile int * pixel_ctrl_ptr = (int *) 0xFF203020;
@@ -22,32 +23,29 @@ int main(void)
     pixel_buffer_start = *(pixel_ctrl_ptr + 1);
     /* initialize the eight boxs and lines*/
     int y = 0;
+    /* Erase any boxes and lines that were drawn in the last iteration */
     while (1)
     {
-        /* Erase any boxes and lines that were drawn in the last iteration */
-        while (1)
+        while (y <= 239)
         {
-            while (y <= 239)
-            {
-                clear_screen(); // pixel buffer start points to the pixel buffer
-                draw_line(0, y, 319, y, 0); // earse the line
-                y = y + 1;
-                draw_line(0, y, 319, y, 0x001F); // draw the next line
-                wait_for_vsync();
-                pixel_buffer_start = *(pixel ctrl ptr + 1); // update back buffer pointer
-            }
-            y = y - 1;
-            while (y >= 0)
-            {
-                clear_screen(); // pixel buffer start points to the pixel buffer
-                draw_line(0, y, 319, y, 0); // earse the line
-                y = y - 1;
-                draw_line(0, y, 319, y, 0x001F); // draw the next line
-                wait_for_vsync();
-                pixel_buffer_start = *(pixel ctrl ptr + 1); // update back buffer pointer
-            }
+            clear_screen(); // pixel buffer start points to the pixel buffer
+            y = y + 1;
+            draw_line(0, y, 319, y, 0x001F); // draw the next line
+            wait_for_vsync();
+            pixel_buffer_start = *(pixel_ctrl_ptr + 1); // update back buffer pointer
         }
+        y = y - 1;
+        while (y >= 0)
+        {
+            clear_screen(); // pixel buffer start points to the pixel buffer
+            y = y - 1;
+            draw_line(0, y, 319, y, 0x001F); // draw the next line
+            wait_for_vsync();
+            pixel_buffer_start = *(pixel_ctrl_ptr + 1); // update back buffer pointer
+        }
+        y = y + 1;
     }
+    return 0;
 }
 
 /* clear the screen*/
@@ -142,4 +140,8 @@ void wait_for_vsync()
 {
     volatile int* pixel_ctrl_ptr = (int*) 0xFF203020;
     *pixel_ctrl_ptr = 0x1;
+    while (*(pixel_ctrl_ptr + 3) & 0x1)
+    {
+        // wait here, continue when show the back buffer picture
+    }
 }
